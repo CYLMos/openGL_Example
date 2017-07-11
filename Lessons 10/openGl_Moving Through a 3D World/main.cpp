@@ -209,12 +209,13 @@ void display(){
     cube.draw();
 
     //Floor
+    glBindTexture(GL_TEXTURE_2D, texture);
     glColor3f(1.0f, 1.0f, 1.0f);
     glBegin(GL_QUADS);
-        glVertex3f(Floor.vertexs[0].x, Floor.vertexs[0].y, Floor.vertexs[0].z);
-        glVertex3f(Floor.vertexs[1].x, Floor.vertexs[1].y, Floor.vertexs[1].z);
-        glVertex3f(Floor.vertexs[2].x, Floor.vertexs[2].y, Floor.vertexs[2].z);
-        glVertex3f(Floor.vertexs[3].x, Floor.vertexs[3].y, Floor.vertexs[3].z);
+        glTexCoord2f(0.0f, 0.0f);glVertex3f(Floor.vertexs[0].x, Floor.vertexs[0].y, Floor.vertexs[0].z);
+        glTexCoord2f(0.0f, 1.0f);glVertex3f(Floor.vertexs[1].x, Floor.vertexs[1].y, Floor.vertexs[1].z);
+        glTexCoord2f(1.0f, 1.0f);glVertex3f(Floor.vertexs[2].x, Floor.vertexs[2].y, Floor.vertexs[2].z);
+        glTexCoord2f(1.0f, 0.0f);glVertex3f(Floor.vertexs[3].x, Floor.vertexs[3].y, Floor.vertexs[3].z);
     glEnd();
 
     glutSwapBuffers();
