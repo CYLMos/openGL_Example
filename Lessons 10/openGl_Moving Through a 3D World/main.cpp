@@ -203,7 +203,6 @@ void display(){
 
     //gluLookAt(8.0f, 8.0f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
-    GLfloat x, y, z;
     GLfloat transX = -myPositionX;
     GLfloat transY = -myPositionY;
     GLfloat transZ = -myPositionZ;
@@ -230,7 +229,6 @@ void display(){
 }
 
 void keyBoardFunc(unsigned char key, int x, int y){
-    float xrotrad, yrotrad;
     switch(key){
         case 'w':
             myPositionX -= float(sin(myRotation * myPIOVER180));
@@ -245,18 +243,14 @@ void keyBoardFunc(unsigned char key, int x, int y){
             break;
 
         case 'd':
-            myRotation -= 1.5f;
-            if(myRotation < 0.0f){
-                myRotation = 360.0f;
-            }
+            myPositionX += float(cos(myRotation * myPIOVER180));
+            myPositionZ -= float(sin(myRotation * myPIOVER180));
             glutPostRedisplay();
             break;
 
         case 'a':
-            myRotation += 1.5f;
-            if(myRotation > 360.0f){
-                myRotation -= 360.0f;
-            }
+            myPositionX -= float(cos(myRotation * myPIOVER180));
+            myPositionZ += float(sin(myRotation * myPIOVER180));
             glutPostRedisplay();
             break;
 
@@ -280,6 +274,12 @@ void mouseMovementFunc(int x, int y){
         mouseLastY = y;
 
         myRotation -= (GLfloat)mouseDiffX * 0.5f;
+        if(myRotation > 360.0f){
+            myRotation -= 360.0f;
+        }
+        if(myRotation < 0.0f){
+            myRotation = 360.0f;
+        }
         myLookUpDown += (GLfloat)mouseDiffY * 0.5f;
 
         if((int)mouseLastX != centerX && (int)mouseLastY != centerY){
@@ -308,11 +308,6 @@ int main(int argc, char* argv[]){
 
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_TEXTURE_2D);
-    //glShadeModel (GL_SMOOTH);
-    //glEnable(GL_BLEND);
-
-    //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-    //gluPerspective( 0, 800/800, 1.0, 500.0);
 
     textureInit();
 
@@ -341,7 +336,6 @@ int main(int argc, char* argv[]){
     glutIdleFunc(display);
     glutKeyboardFunc(keyBoardFunc);
     glutPassiveMotionFunc(mouseMovementFunc);
-    //glutTimerFunc(20, timer, 2);
 
     glutMainLoop();
 
