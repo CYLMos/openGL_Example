@@ -282,7 +282,7 @@ void mouseMovementFunc(int x, int y){
         }
         myLookUpDown += (GLfloat)mouseDiffY * 0.5f;
 
-        if((int)mouseLastX != centerX && (int)mouseLastY != centerY){
+        if((int)mouseLastX != centerX || (int)mouseLastY != centerY){
             resetMouseCenter = true;
         }
     }
